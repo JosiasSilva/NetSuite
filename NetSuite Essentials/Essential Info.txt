@@ -26,3 +26,4 @@ Community help page: SuiteAnswer
 
 
 
+A user can have multiple roles.
