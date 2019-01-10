@@ -1,0 +1,28 @@
+Global Search:  Search for anything on the current page & under NetSuite.
+
+Search types: general & transactions.
+
+
+In search box:
+Min. 3 letters will bring up the suggestions.
+
+search keywords eg:  
+customers
+cus
+cus: customer_name
+page: %order%
+page: cus___
+
+
+Help centre button on top right will open online help guide for the current page if found or home page of help centre.
+
+Glossary in help centre page contains all the terminologies used inside the NetSuite.
+
+CTRL + G bring the cursor to the global search input box.
+
+Double click on NetSuite Logo brings a popup having performance details. It contains the time taken to load page and breakdowns of that time.
+
+Community help page: SuiteAnswer
+
+
+
