@@ -27,3 +27,7 @@ Community help page: SuiteAnswer
 
 
 A user can have multiple roles.
+
+
+NetSuite provides SuiteBuilder, and other SuiteCloud tools for customization od NetSuite.
+
