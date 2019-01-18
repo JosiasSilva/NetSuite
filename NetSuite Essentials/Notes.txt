@@ -1,3 +1,7 @@
+New fields, records, form etc. can be created from Customization tab.
+By default new fields are added in Custom subtab of the records' page.
+
+
 SuiteBuilder  - Tool embeded in netsuite application. For customizing any form from netsuit application. Open any form with netsuit builder.
 Non programming tool. Point & Click approach.
 
@@ -212,6 +216,12 @@ Subrecords:
     
 
 
+### Context onject as parameter for entry piont in Suitescript
+
+context	-  it's like providing extra info. to the system while entering into the code
+	   Using context record, form etc can be accessed
+	   
+	   
 
 
 
