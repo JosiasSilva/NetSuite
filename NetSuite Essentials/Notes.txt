@@ -1,0 +1,225 @@
+SuiteBuilder  - Tool embeded in netsuite application. For customizing any form from netsuit application. Open any form with netsuit builder.
+Non programming tool. Point & Click approach.
+
+SuiteFlow - for creating/customizing business process automation. It's a non programming tool. Point & Click approach.
+
+SuiteScript - Automating & Extending the capability of NetSuite through JavaScript.
+
+SuiteTalk - Integration API. Used to integrate other app with NetSuite. Connecting two systems together.
+
+SuiteAnalytics  - 
+
+SuiteBundler  - 
+
+
+### No need to join any tables. If we are accessing any Record, all related table column/data will become accessible automatically.
+
+### Record groups - 
+
+    Entities  - Records related to persons. eg. Customers, Vendors, Employees, Project
+    Transactions  - Records related to movement of money. eg. Sales Order, Purchase Orders, Expense Reports, Inventory Adjustment
+    CRM Records - Records related to day-to-day business process. eg. Events, Tasks, Phone Calls
+    items - Records related to items. eg. Inventory Items, Item groups, Discounts
+
+
+### SuiteScript type
+    
+    Client  - 
+    User Event  - these scripts run on server
+    WorkFlow Action - 
+    Scheduled
+    Map/Reduce
+    Suitelet
+    RESTlet
+    Portlet
+    Mass Update
+    Bundle Installation
+    
+###    
+    /**
+    * @NApiVersion 2.0
+    * @NScriptType UserEventScript
+    */
+    define(function() {
+      return {
+          beforeLoad: function (context) {
+            log.debug('Hello World');
+          }
+      };
+    });
+    
+    
+Configuration for SuiteScript project:
+--------------------------------------------------------------------------------
+
+###  training account environment - to be added in eclipse Netsuite environment
+     Name : NA Nortwest
+     URL  : system.netsuite.com   (copy from netsuite account url)
+     
+
+Create a SuiteCloud project. project type as SuiteScript and select correct version of SuiteScript.
+
+right-click on project - Netsuite - Change project settings
+Add account, email, password  - to connect to one NetSuite Application
+
+Select one account and close.
+
+
+Now, right-click on project - new - SuiteScript
+
+select type of script
+
+script file name : company_scripttype_description   eg. sdr_ue_employee
+
+Imp!  - Add JS DOC TAG on top of define
+type /** and enter
+
+--------------------------------
+/**
+ * @NApiVersion 2.0
+ * @NScriptType UserEventScript
+ * @returns
+ */
+
+define([],
+
+function() {
+   
+    return {
+        
+    };
+    
+});
+--------------------------------
+--------------------------------
+/**
+ * @NApiVersion 2.0
+ * @NScriptType UserEventScript
+ * @returns
+ */
+
+define([],
+
+/* call back function */
+function() {
+   
+   /* mandatory for suitscript 2.0 */
+    return {
+    	/* gets executed after saving any record/form */
+    	/* In return a entrypoint name is mandatory having a function or function call
+      
+        afterSubmit	:	function(context){    
+        	
+        }
+    };
+    
+});
+================================================
+Above code is same as below
+=================================================
+/**
+ * @NApiVersion 2.0
+ * @NScriptType UserEventScript
+ * @returns
+ */
+
+define([],
+
+function() {
+   
+    	function myAfterSubmit(context){
+    		// Do something
+    	}
+      
+    return {    	
+    	
+    	/* gets executed after saving any record/form */
+    	
+        afterSubmit	:	myAfterSubmit
+    };
+    
+});
+
+===================================================
+
+/**
+ * @NApiVersion 2.0
+ * @NScriptType UserEventScript
+ * @returns
+ */
+
+define([],
+
+function() {
+	
+	function myAfterSubmit(context){
+		// Do something
+	}
+	
+	function setFieldValue(fieldName){
+		
+	}
+   
+    return {
+    	    	    
+    	/* gets executed after saving any record/form */
+    	
+        afterSubmit	:	function(context){
+        	setFieldValue('');
+        },
+        
+        beforeLoad	:	function(context){
+        	setFieldValue('');
+        }
+    };
+    
+});
+
+==================================================
+
+### For uploading the JS file to the NetSuite Account
+
+select files/s and right click - NetSuite - upload selected files.
+
+Got ot NetSuite Application
+
+Document - File - SuiteScript
+
+find the uploaded JS file in appropriate folder
+
+===================================================
+
+### For triggering the custom JS file
+
+Create new script record:
+Customization - Scripting - Script - new
+
+Name: SuiteDreams UE Employee   (naming convention)
+ID: _sdr_ue_employee            (always start with '_', can give file name itself but should be unique ) IMP!
+Description: as per script function
+
+Subrecords:
+  Deployments:
+    Applies To: add record/s on which script should execute
+    ID: provide as file name
+    Deployed : Y/N    to make script active/Inactive
+    STATUS: testing -  will execute for only owner of script, netsuite account
+            Released - It will be executed for All users of netsuite account
+    Event Type : On which event JS file should be created
+                 Can be set from script deployment or from script itself
+                 
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
