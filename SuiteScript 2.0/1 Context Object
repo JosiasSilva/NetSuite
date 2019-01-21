@@ -1,0 +1,62 @@
+context.newRecord - current state of record before saving to database
+context.oldRecord - record data from database
+
+Can be used to compare before save.
+
+
+## Enable display internal ID on field help
+  
+  home - set preferences - check 'SHOW INTERNAL IDS'
+
+
+getValue - returns internal id    //in case of record field and dropdown/List
+getValue - returns value    //in otherwise case
+
+getText - returns value of the field  //only applicable if dealing with record field and dropdown/List
+
+## For server side SuiteScript debugging, navigate to Customization - script - script debugging
+## For client side Suitescript debugging, debug from browser
+
+## We can only debug the script which is set to Testing. Not Release.
+
+## Before Submit (event) - validate the data
+## After Submit (event) - transaction after submit like sending mail, setting the status to complete of the transaction.
+
+
+
+/**
+ * @NApiVersion 2.0
+ * @NScriptType UserEventScript
+ * @returns
+ */
+
+define([],
+
+function() {	
+    return {    	    	            	
+        afterSubmit	:	function(context){
+//        	log.debug('Hello World');
+        	
+        	//get values from current record context
+        	
+        	var employee = context.newRecord;
+        	var empCode = employee.getValue('custentity_sdr_employee_code');
+        	var supervisorName = employee.getText('supervisor');
+        	var supervisorID = employee.getValue('supervisor');
+        	
+        	// for setting the value
+        	//employee.setValue('custentity_sdr_employee_code', 'Emp0002');
+        	
+        	//logging to the Script Execution Log
+        	log.debug('Employee Code', empCode);
+        	log.debug('Supervisor ID', supervisorID);
+        	log.debug('Supervisor Name', supervisorName);
+        	
+        	//Console log does not work in SuiteScript
+        	//console.log('Employee Code ' | empCode | ' Supervisor ID ' | supervisorID | ' Supervisor Name ' | supervisorName)
+        	//console.log(empCode);
+        }
+    };    
+});
+
+
