@@ -1,6 +1,11 @@
 ## CLIENT SIDE SCRIPT
 
+## Force the browser to download new js from server by pressing CTRL + f5. Otherwise it will load file from cache.
+
 // alert() and console.log() can be used for debugging on client script, not on server script
+
+## For debugging the client script
+add:    debugger;   statement in the code, execution will stop here.
 
 
 /**
