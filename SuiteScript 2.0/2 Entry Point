@@ -1,0 +1,206 @@
+## CLIENT SIDE SCRIPT
+
+// alert() and console.log() can be used for debugging on client script, not on server script
+
+
+/**
+ * @NApiVersion 2.x
+ * @NScriptType ClientScript
+ * @NModuleScope SameAccount
+ */
+define([],
+
+function() {
+    
+    /**
+     * Function to be executed after page is initialized.
+     *
+     * @param {Object} scriptContext
+     * @param {Record} scriptContext.currentRecord - Current form record
+     * @param {string} scriptContext.mode - The mode in which the record is being accessed (create, copy, or edit)
+     *
+     * @since 2015.2
+     */
+    function pageInit(scriptContext) {
+
+    }
+
+    /**
+     * Function to be executed when field is changed.
+     *
+     * @param {Object} scriptContext
+     * @param {Record} scriptContext.currentRecord - Current form record
+     * @param {string} scriptContext.sublistId - Sublist name
+     * @param {string} scriptContext.fieldId - Field name
+     * @param {number} scriptContext.lineNum - Line number. Will be undefined if not a sublist or matrix field
+     * @param {number} scriptContext.columnNum - Line number. Will be undefined if not a matrix field
+     *
+     * @since 2015.2
+     */
+    function fieldChanged(context) {
+    	//accessing current record on client side
+    	var employee = context.currentRecord;
+    	
+    	if(context.fieldId == 'phone'){
+    		var fax = employee.getValue('fax');
+    		
+    		if(!fax){
+    			var phone = employee.getValue('phone');
+    			employee.setValue('fax', phone);
+    		}
+    	}      	
+    }
+
+    /**
+     * Function to be executed when field is slaved.
+     *
+     * @param {Object} scriptContext
+     * @param {Record} scriptContext.currentRecord - Current form record
+     * @param {string} scriptContext.sublistId - Sublist name
+     * @param {string} scriptContext.fieldId - Field name
+     *
+     * @since 2015.2
+     */
+    function postSourcing(scriptContext) {
+    	
+    }
+
+    /**
+     * Function to be executed after sublist is inserted, removed, or edited.
+     *
+     * @param {Object} scriptContext
+     * @param {Record} scriptContext.currentRecord - Current form record
+     * @param {string} scriptContext.sublistId - Sublist name
+     *
+     * @since 2015.2
+     */
+    function sublistChanged(scriptContext) {
+
+    }
+
+    /**
+     * Function to be executed after line is selected.
+     *
+     * @param {Object} scriptContext
+     * @param {Record} scriptContext.currentRecord - Current form record
+     * @param {string} scriptContext.sublistId - Sublist name
+     *
+     * @since 2015.2
+     */
+    function lineInit(scriptContext) {
+
+    }
+
+    /**
+     * Validation function to be executed when field is changed.
+     *
+     * @param {Object} scriptContext
+     * @param {Record} scriptContext.currentRecord - Current form record
+     * @param {string} scriptContext.sublistId - Sublist name
+     * @param {string} scriptContext.fieldId - Field name
+     * @param {number} scriptContext.lineNum - Line number. Will be undefined if not a sublist or matrix field
+     * @param {number} scriptContext.columnNum - Line number. Will be undefined if not a matrix field
+     *
+     * @returns {boolean} Return true if field is valid
+     *
+     * @since 2015.2
+     */
+    // Restrict user from going out of field, if incorrect value is entered.
+    // return false from the function, If don't want to execute next event
+    function validateField(context) {
+    	var employee = context.currentRecord;
+    	
+    	if(context.fieldId == 'custentity_sdr_employee_code'){
+    		var empCode = employee.getValue('custentity_sdr_employee_code');
+    		
+    		if(empCode == 'x'){
+        		alert('Invalid Employee Code');
+        		// In Save Record, return boolean to allow or restrict the SAVE process
+        		return false;
+        	}
+    		console.log('EmpCode', empCode);
+        	return true;
+    	}
+    }
+
+    /**
+     * Validation function to be executed when sublist line is committed.
+     *
+     * @param {Object} scriptContext
+     * @param {Record} scriptContext.currentRecord - Current form record
+     * @param {string} scriptContext.sublistId - Sublist name
+     *
+     * @returns {boolean} Return true if sublist line is valid
+     *
+     * @since 2015.2
+     */
+    function validateLine(scriptContext) {
+
+    }
+
+    /**
+     * Validation function to be executed when sublist line is inserted.
+     *
+     * @param {Object} scriptContext
+     * @param {Record} scriptContext.currentRecord - Current form record
+     * @param {string} scriptContext.sublistId - Sublist name
+     *
+     * @returns {boolean} Return true if sublist line is valid
+     *
+     * @since 2015.2
+     */
+    function validateInsert(scriptContext) {
+
+    }
+
+    /**
+     * Validation function to be executed when record is deleted.
+     *
+     * @param {Object} scriptContext
+     * @param {Record} scriptContext.currentRecord - Current form record
+     * @param {string} scriptContext.sublistId - Sublist name
+     *
+     * @returns {boolean} Return true if sublist line is valid
+     *
+     * @since 2015.2
+     */
+    function validateDelete(scriptContext) {
+
+    }
+
+    /**
+     * Validation function to be executed when record is saved.
+     *
+     * @param {Object} scriptContext
+     * @param {Record} scriptContext.currentRecord - Current form record
+     * @returns {boolean} Return true if record is valid
+     *
+     * @since 2015.2
+     */
+    function saveRecord(context) {
+    	var employee = context.currentRecord;
+    	var empCode = employee.getValue('custentity_sdr_employee_code');
+    	
+    	if(empCode == 'x'){
+    		alert('Invalid Employee Code');
+    		// In Save Record, return boolean to allow or restrict the SAVE process
+    		return false;
+    	}
+    	return true;
+    }
+
+    return {
+//        pageInit: pageInit,
+        fieldChanged: fieldChanged,
+//        postSourcing: postSourcing,
+//        sublistChanged: sublistChanged,
+//        lineInit: lineInit,
+        validateField: validateField,
+//        validateLine: validateLine,
+//        validateInsert: validateInsert,
+//        validateDelete: validateDelete,
+        saveRecord: saveRecord
+    };
+    
+});
+
