@@ -223,7 +223,13 @@ context	-  it's like providing extra info. to the system while entering into the
 	   
 	   
 
-
+## file name shold be in lowercase and below format
+	<companyAbbr>_<scriptType>_<description>.js
+	
+## Netsuite ID
+	_<companyAbbr>_scriptType>_<description>
+	
+	
 
 
 
