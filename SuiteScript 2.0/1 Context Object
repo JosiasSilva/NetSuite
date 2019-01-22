@@ -22,7 +22,7 @@ getText - returns value of the field  //only applicable if dealing with record f
 ## Before Submit (event) - validate the data
 ## After Submit (event) - transaction after submit like sending mail, setting the status to complete of the transaction.
 
-
+## BELOW CODE IS SERVER SCRIPT
 
 /**
  * @NApiVersion 2.0
