@@ -1,0 +1,32 @@
+## [SOAP Fault Web Exception]: The request was aborted: Could not create SSL/TLS secure channel
+
+To fix this add code between START CODE & END CODE
+
+ public SuiteTalkCourse()
+        {
+            /*
+             * Sets the application to accept all certificates coming from a secure server.
+             * NOTE: This line is only required if the network or application needs to communicate over HTTPS (SSL).
+             */
+            ServicePointManager.ServerCertificateValidationCallback += delegate { return true; };
+
+            /* AMAR KUMAR */
+            /* Added custom code for - [SOAP Fault Web Exception]: The request was aborted: Could not create SSL/TLS secure channel. */
+            /* START CODE */
+            // using System.Net;
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            // Use SecurityProtocolType.Ssl3 if needed for compatibility reasons
+            /* END CODE */
+
+
+            // All web service operations execute against the _service field
+            _service = new NetSuiteService();
+
+            // Added to make sure the application works regardless of the data center
+            //setDataCenterUrl("<NetSuite Account number>");
+
+            setPreferences();   // Set all preferences, search & regular
+            setPassport();      // Set the Passport information for authentication
+            //setTokenPassport(); // Comment out the setPassport() call and uncomment this to use tokens for logging in.
+        }
