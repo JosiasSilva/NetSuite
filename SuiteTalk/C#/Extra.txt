@@ -11,3 +11,10 @@ after process... click add reference
 DONE
 
 
+## Details for setPassport()
+
+applicationID = // Setup - Integration - Manage integration - APPLICATION ID Of prefered Integrations
+email = // NetSuite Email
+password = // Netsuite password
+account = // Setup - Integration - Web Services Preferences - ACCOUNT ID
+role {InternalId} = // user internal Id
