@@ -1,0 +1,13 @@
+## Add WSDL Url
+
+In SuiteTalk Project :
+R. click on Service References
+Add service references
+Advanced
+Add Web Reference..
+paste url in URL 
+press enter
+after process... click add reference
+DONE
+
+
