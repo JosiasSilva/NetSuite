@@ -1,0 +1,248 @@
+                                                            LOAD RECORD
+------------------------------------------------------------------------------------------------------------------------------------------
+if(context.fieldId == 'subsidiary'){            // check the current active field
+						var subsidiaryRec = record.load({
+			        	    type: record.Type.SUBSIDIARY, 
+			        	    id: employee.getValue('subsidiary')
+			        	});
+						
+						if (subsidiaryRec.getValue('country') != "US"){     
+							dialog.alert({
+								title : 'Invalid Subsidiary',
+								message : "Please select a US subsidiary."
+							});
+							
+							//employee.setValue('subsidiary', '');
+							return false;
+						}
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------
+                                                          Name as Character Only
+-------------------------------------------------------------------------------------------------------------------------------------------
+if (context.fieldId == 'lastname'){
+						var lastName = employee.getValue('lastname');
+						var format = /^[A-Za-z]+$/;						
+						
+						if(!format.test(lastName) && lastName){							
+							employee.setValue('lastname', '');
+							dialog.alert({
+								title : 'Error - Last Name',
+								message : "Name should contains alphabets only."
+							});
+							return false;
+						}
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+                                                          Date Validation
+-----------------------------------------------------------------------------------------------------------------------------------------
+var today = new Date();
+		today.setHours(0, 0, 0, 0);
+    
+    if (context.fieldId == 'birthdate') {
+						var birthdDate = new Date(employee.getValue('birthdate'));						
+
+						birthdDate.setHours(0, 0, 0, 0);
+
+						if (birthdDate.getTime() > today.getTime()) {
+							employee.setValue('birthdate', '');
+							dialog.alert({
+										title : 'Error - Birth Date Error',
+										message : "Birthdate can not be after today's date."
+									});
+							return false;
+						}
+}
+---------------------------------------------------------------------------------------------------------------------------------------
+                                                     Number Validation
+---------------------------------------------------------------------------------------------------------------------------------------
+if (employee.getText('customform') == evform) {
+									
+					// SSN - should be 9 character in length or null
+					if (context.fieldId == 'socialsecuritynumber') {
+						var ssn = employee.getValue('socialsecuritynumber');
+						var ssnFormat = /^\d+$/;
+
+						if ((ssn.length != 0 && ssn.length != 9) || (ssn.length != 0 && !ssnFormat.test(ssn))) {						
+							employee.setValue('socialsecuritynumber', '');
+							dialog.alert({
+										title : 'Error - Social Security Number',
+										message : 'SSN Must be of 9 digits Number, please enter the correct Number.'
+									});
+							return false;
+						}
+					}
+------------------------------------------------------------------------------------------------------------------------------------
+                                                              format date to MMDDYYYY
+-------------------------------------------------------------------------------------------------------------------------------------                                                              
+		function getFormattedDate(date){    	
+		    	date = new Date(date);
+		    	var d = date.getDate();
+		    	var m = date.getMonth() + 1;
+		    	//const y = date.getFullYear();
+		    	
+		    	var newDate = (m <= 9 ? '0' + m : m) + (d <= 9 ? '0' + d : d) + date.getFullYear();
+		    	console.log(newDate);
+		    	return newDate;
+	}                                                            
+--------------------------------------------------------------------------------------------------------------------------------------
+                                      convert JS object into url parameter string
+--------------------------------------------------------------------------------------------------------------------------------------                                      
+					
+					var param = Object.keys(empObject).reduce(function(_qs, k, i){ return _qs + '&' + k + '=' + empObject[k]; }, '').substring(1);
+					console.log(param);
+---------------------------------------------------------------------------------------------------------------------------------------
+                                          Format Address (From Multiple Lines)
+----------------------------------------------------------------------------------------------------------------------------------------
+/// format address
+		   /* function getAddressDetails(address){
+		    	console.log(address);
+		    	var arr, length, arr1, city = "", addressLine = "";
+		    	
+		    	arr = address.split(/\n/);
+		    	length = arr.length;
+		    	arr1 = arr[length-2].split(" ");
+		    	addressLine = "";
+		    	
+		    	console.log(arr);
+		    	console.log(arr1);
+		    	
+		    	//extract city
+		    	for(j=0; j < arr1.length - 2; j++){
+		    		city += arr1[j];
+		    		if(j != arr1.length - 3){
+		    			city += " ";
+		    		}
+		    	}
+		    	
+		    	
+		    	// extract address line 1
+		    	for(i=0; i < length-2; i++){
+		    		addressLine += arr[i];
+		    		
+		    		if(i != length - 3){
+		    			addressLine += ", ";
+		    		}
+		    	}
+		    	
+		    	console.log(addressLine);
+		    	
+		    	return {
+		    		country : arr[length-1],
+		    		city : city,
+		    		state : arr1[arr1.length - 2],
+		    		zip : arr1[arr1.length - 1],
+		    		addline1 : addressLine
+		    	}
+		    }
+---------------------------------------------------------------------------------------------------------------------------------------
+                                                    Internal RESTLet Call
+--------------------------------------------------------------------------------------------------------------------------------------
+/*var param = Object.keys(empObject).reduce(function(_qs, k, i){ return _qs + '&' + k + '=' + empObject[k]; }, '').substring(1);
+					console.log(param);*/
+					
+					
+					// restlet - ev
+					// make internal url
+					/*
+					var restletUrl = url.resolveScript({
+			    		scriptId	: 'customscript_se_rl_employee_everify',
+			    		deploymentId : 'customdeploy_se_rl_employee_everify'
+			    	});
+					
+					// call get method of restlet and store the response
+					var response = https.get({			    		
+			    		url : restletUrl + '&' + param
+			    	}); 
+					
+					// 
+					console.log('Response' , response.body);
+					if(response){
+						employee.setValue('custentity_se_everify_currentstatus', 2);
+					}
+---------------------------------------------------------------------------------------------------------------------------------------
+                                                                  POST
+---------------------------------------------------------------------------------------------------------------------------------------
+function sendAndUpdateRecord(empObj){
+    	
+    	var xmlObj = objectToXml(empObj);
+    	log.audit('XML POST', xmlObj);
+    	
+    	// POST xml to E-Verify
+    	var response = https.post({
+    		 url: restURL,
+    		 body: xmlObj
+    	});
+    	
+    	//log.debug('RESPONSE', response);
+    	log.debug('XML RESPONSE BODY', response.toJSON().body);
+    	
+    	var xmlDocument = xml.Parser.fromString({
+    		text : response.toJSON().body		//Get XML part from JSON response
+    	});
+    	
+    	//log.audit('Root Node', xmlDocument.documentElement.tagName);
+    	
+    	//Success
+    	if(xmlDocument.documentElement.tagName === 'success'){
+    		var successNode = xml.XPath.select({
+       		 	node : xmlDocument,
+       		 	xpath : '//success'
+    		});
+    		
+    		var i9Id = successNode[0].getElementsByTagName('I9ID')[0].textContent;
+    		
+    		log.audit('SUCCESS ' + empObj.internalid, i9Id);
+    		
+    		// Update the record
+    		var employeeRec = record.load({
+        	    type: record.Type.EMPLOYEE, 
+        	    id: empObj.internalid,
+        	    //isDynamic: true
+        	});
+        	
+        	employeeRec.setValue('custentity_se_i9id', i9Id);
+        	
+        	try{
+        		employeeRec.save();
+        		log.debug({
+        			title: 'I9ID added into record: ' + empObj.internalid,
+        			details: 'Record Id: ' + empObj.internalid + ' I9ID: ' + i9Id
+        			});
+        	}catch (e) {
+        		log.error({
+                    title: e.name,
+                    details: e.message
+                });  
+    		}
+    	
+    	//Fail	
+    	}else{
+    		/*var failNode = xml.XPath.select({
+       		 	node : xmlDocument,
+       		 	xpath : '//fail'
+    		});*/
+    		
+    		log.audit('FAIL ' + xmlObj.internalid, response.toJSON().body);
+    	}
+    }
+    
+--------------------------------------------------------------------------------------------------------------------------------------
+                                                    Convert JSON TO XML
+---------------------------------------------------------------------------------------------------------------------------------------
+function objectToXml(obj) {
+        var xmlPayload = '<?xml version="1.0" encoding="UTF-8"?><root>';
+
+        for (var prop in obj) {
+        	
+            if (obj[prop] == null)
+            	obj[prop] = "";
+
+            xmlPayload += "<" + prop + ">";
+            xmlPayload += obj[prop];
+            xmlPayload += "</" + prop + ">";
+        }
+        return xmlPayload + "</root>";
+    }
+--------------------------------------------------------------------------------------------------------------------------------------    
+
