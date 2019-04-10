@@ -260,10 +260,31 @@ employee.getValue('billzip')),			// zip
 employee.getValue('billcountry');		//country
 
 ---------------------------------------------------------------------------------------------------------------------------------------
-										
-										
-										
-										
+						ADD BUTTON ON STANDARD FORM (using CS & UE Scripts)
+---------------------------------------------------------------------------------------------------------------------------------------						
+1. Using Client Script: Runs only in Create/Edit mode by default
+--------------------------------------------------------------------
+Navigate to Script record -> Edit the Client Script -> In Button Section: Add Button Name & function name (to be executed on button click)
+In Client Script:
+	Write the function & return it along with the entry points.
+	
+LIMITATIONS: Client Script doesn't load & run in view mode of the record.
+
+2. Using User Event Script: Runs in Create/Edit/View mode by default
+----------------------------------------------------------------------
+In before load:
+	context.form.addButton({
+		id: "custpage_myButton",		//custpage prefix is required
+		label: "Click Me",
+		functionName:	"onButtonClicked"	//function to be executed on button clicked	
+	});
+
+// If the function to be executed on button click is written on client script, load the client script. As CS doesn't load in view mode by default.
+
+context.form.clientScriptModulePath = "SuiteScripts/Custom Scripts/CS_fileName.js";		//Path: sclientScript Path
+
+---------------------------------------------------------------------------------------------------------------------------------------										
+						
 										
 										
 										
