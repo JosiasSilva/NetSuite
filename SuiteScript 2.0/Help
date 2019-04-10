@@ -250,3 +250,31 @@ function objectToXml(obj) {
     	log.audit("JSON", JSON.stringify(empObject, null, 20));		// 20 spaces b/w attribute and value
 	
 --------------------------------------------------------------------------------------------------------------------------------------
+							HOME ADDRESS ON EMPLOYEE RECORD
+-------------------------------------------------------------------------------------------------------------------------------------
+console.log(employee.getValue('billaddr1'),	// line 1
+console.log(employee.getValue('billaddr2'),	// line 2
+employee.getValue('billcity'),			// city
+employee.getValue('billstate'),			// state	
+employee.getValue('billzip')),			// zip
+employee.getValue('billcountry');		//country
+
+---------------------------------------------------------------------------------------------------------------------------------------
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
