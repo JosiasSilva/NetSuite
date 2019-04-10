@@ -283,8 +283,10 @@ In before load:
 
 context.form.clientScriptModulePath = "SuiteScripts/Custom Scripts/CS_fileName.js";		//Path: sclientScript Path
 
+NOTE: Even if Client script is loaded in view mode using userEventScript, the button created in client script record will not appear
+in the record in view mode.
 ---------------------------------------------------------------------------------------------------------------------------------------										
-						
+											
 										
 										
 										
