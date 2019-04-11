@@ -286,7 +286,42 @@ context.form.clientScriptModulePath = "SuiteScripts/Custom Scripts/CS_fileName.j
 NOTE: Even if Client script is loaded in view mode using userEventScript, the button created in client script record will not appear
 in the record in view mode.
 ---------------------------------------------------------------------------------------------------------------------------------------										
-											
+							HIDE BUTTONS
+---------------------------------------------------------------------------------------------------------------------------------------
+NOTE: NS provides JQuery lib ref out of the box.
+
+In User Event, BeforeLoad:
+---------------------------
+		//create an inline html field
+        var hideFld = context.form.addField({
+        	id:'custpage_hide_buttons',
+        	label:'not shown - hidden',
+        	type: serverWidget.FieldType.INLINEHTML
+        });
+
+         
+        //for every button you want to hide, modify the scr += line
+        var scr = "";
+        scr += 'jQuery("#custpage_btn_resend").hide();';		//Button ID Followed by #
+        //scr += 'jQuery("#addmessage").hide();';
+        //scr += 'jQuery("#addcontact").hide();';
+
+        //push the script into the field so that it fires and does its handy work
+        hideFld.defaultValue = "<script>jQuery(function($){require([], function(){" + scr + ";})})</script>"
+---------------------------------------------------------------------------------------------------------------------------------------
+							Script Governance Unit
+---------------------------------------------------------------------------------------------------------------------------------------
+var scriptObj = runtime.getCurrentScript();
+log.debug("Remaining governance units: " + scriptObj.getRemainingUsage());
+	
+---------------------------------------------------------------------------------------------------------------------------------------
+							ADD Field using SuiteScript
+---------------------------------------------------------------------------------------------------------------------------------------
+NOTE: Applies to field created by suitescript only.
+
+scriptContext.form.getField('tranid').setHelpText({help:'Test'});
+
+	
 										
 										
 										
