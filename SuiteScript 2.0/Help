@@ -321,8 +321,46 @@ NOTE: Applies to field created by suitescript only.
 
 scriptContext.form.getField('tranid').setHelpText({help:'Test'});
 
-	
-										
+====================================================================================================================================
+					Add TAB, FIELD GROUP, FIELD & LIST using userevent script
+=======================================================================================================================================							
+var tab = context.form.addTab({
+    			 id : 'custpage_tabid2',
+    			 label : 'Tab 2'
+    			});
+
+    		var fieldgroup = context.form.addFieldGroup({
+    			 id : 'custpage_fieldgroupid',
+    			 label : 'Field Group',
+    			 tab: 'custpage_tabid2'
+    			});
+    			var field = context.form.addField({
+    			 id : 'custpage_textfield',
+    			 type : serverWidget.FieldType.TEXT,
+    			 label : 'Text',
+    			 container : 'custpage_fieldgroupid'
+    			});
+    		
+    		
+    		var myselectfield = context.form.addField({
+        		id: 'custpage_residentststus', 
+        		type: 'select', 
+        		label: 'resident status',
+        		container: 'custpage_fieldgroupid'
+        	});
+    		
+    		
+    		myselectfield.addSelectOption({value: '0', text: ''});
+    	    myselectfield.addSelectOption({value: '1', text: 'Citizen1'});
+    	    myselectfield.addSelectOption({value: '2', text: 'Non-Citizen National'}); 
+    	    myselectfield.addSelectOption({value: '3', text: 'PR'});
+    	    myselectfield.addSelectOption({value: '4', text: 'Alien-Authorized to work'});
+    	    
+    	    myselectfield.setHelpText({
+    	    	help : "Help Text Goes Here."
+    	    });
+=======================================================================================================================================
+
 										
 										
 										
