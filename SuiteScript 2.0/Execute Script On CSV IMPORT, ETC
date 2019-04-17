@@ -1,3 +1,5 @@
+1.0
+------------------------------------------------------------------------------------------------------------------------------------
 function aftersubmit(type)
 {
    var context = nlapiGetContext();   
@@ -20,3 +22,36 @@ custommassupdate - Mass update script triggers invoked via custom Mass Update sc
 workflow - Workflow action script triggers invoked via Workflow Action scripts
 webstore - User event triggers invoked from the web store.
 userevent - This context type represents cases in which records are generated in the backend.
+---------------------------------------------------------------------------------------------------------------------------------------
+2.0   |  N/runtime Module  
+---------------------------------------------------------------------------------------------------------------------------------------
+if (runtime.executionContext === runtime.ContextType.USEREVENT)
+ return;
+---------------------------------------------------------------
+Enum Value                                                        Sets runtime.ExecutionContext Property To
+ACTION                                                            ACTION
+BUNDLE_INSTALLATION                                               BUNDLE_INSTALLATION
+CLIENT                                                            CLIENT
+CONSOLRATEADJUSTOR                                                CONSOLRATEADJUSTOR
+CSV_IMPORT                                                        CSVIMPORT
+CUSTOMGLLINES                                                     CUSTOMGLLINES
+CUSTOM_MASSUPDATE                                                 CUSTOMMASSUPDATE
+DEBUGGER                                                          DEBUGGER
+EMAIL_CAPTURE                                                     EMAILCAPTURE
+MAP_REDUCE                                                        MAPREDUCE
+PAYMENTGATEWAY                                                    PAYMENTGATEWAY
+PORTLET                                                           PORTLET
+PROMOTIONS                                                        PROMOTIONS
+RESTLET                                                           RESTLET
+SCHEDULED                                                         SCHEDULED
+SHIPPING_PARTNERS                                                 SHIPPINGPARTNERS
+SUITELET                                                          SUITELET
+TAX_CALCULATION                                                   TAXCALCULATION
+USEREVENT                                                         USEREVENT
+USER_INTERFACE                                                    USERINTERFACE
+WEBAPPLICATION                                                    WEBAPPLICATION
+WEBSERVICES                                                       WEBSERVICES
+WEBSTORE                                                          WEBSTORE
+WORKFLOW                                                          WORKFLOW
+==================================================================================================================================
+
