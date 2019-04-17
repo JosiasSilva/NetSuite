@@ -1,0 +1,22 @@
+function aftersubmit(type)
+{
+   var context = nlapiGetContext();   
+   if( (context.getExecutionContext() == 'csvimport'))
+   { 
+       //add your logic here.
+   }
+}
+ 
+ 
+Addition to this there are few other types:
+
+userinterface - Client SuiteScript or user event triggers invoked from the UI
+webservices - User event triggers invoked from webservice calls
+csvimport - User event triggers invoked during CSV imports
+portlet - Portlet script or user event triggers invoked via portlet scripts
+scheduled - Scheduled script or user event triggers invoked via scheduled scripts
+suitelet - Suitelet or user event triggers invoked via suitelets
+custommassupdate - Mass update script triggers invoked via custom Mass Update scripts
+workflow - Workflow action script triggers invoked via Workflow Action scripts
+webstore - User event triggers invoked from the web store.
+userevent - This context type represents cases in which records are generated in the backend.
