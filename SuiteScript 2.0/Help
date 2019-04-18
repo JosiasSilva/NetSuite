@@ -360,9 +360,55 @@ var tab = context.form.addTab({
     	    	help : "Help Text Goes Here."
     	    });
 =======================================================================================================================================
+							SUBLIST
+---------------------------------------------------------------------------------------------------------------------------------------
+Sublist line count
+-------------------
+var customer = context.currentRecord;
+    	var ProdprefCount = customer.getLineCount({	
+    		sublistId: 'recmachcustrecord_se_pdr_cust'
+    	});
+-------------------------------------------------------------
+Line Init
+-------------------------------------------------------------
+var customer = context.currentRecord;
+    	customer.setCurrentSublistValue({
+    		sublistId:'recmachcustrecord_se_pdr_cust',
+    		fieldId: 'custrecord_se_prd_prefquantity',
+    		value : 5	
+    	});
+--------------------------------------------------------------
+Validate Line
+-------------------------------------------------------------
+function validateLine(context) {
+    	var customer = context.currentRecord;
+    	log.debug("Function","ValidateLine");
+    	var PrefQuantity = customer.getCurrentSublistValue({
+    		sublistId:'recmachcustrecord_se_pdr_cust',
+    		fieldId: 'custrecord_se_prd_prefquantity',
+    	});
+    	log.debug("Value is: " + PrefQuantity);
+    	if (PrefQuantity > 10) {
+    		alert ('Quantity cannot be greater than 10');
+    		return false;
+    	}
+    	return true;
+--------------------------------------------------------------
+Access Exixting Sublist lines
+--------------------------------------------------------------
+var customer = context.currentRecord;
+    	var ProdprefCount = customer.getLineCount({	
+    		sublistId: 'recmachcustrecord_se_pdr_cust'
+    	});
+    	var totalQuantity = 0;
+    	for(var i=0; i<ProdprefCount; i++) {
+    		totalQuantity = totalQuantity + Number(customer.getSublistValue({
+        		sublistId:'recmachcustrecord_se_pdr_cust',
+        		fieldId: 'custrecord_se_prd_prefquantity',
+        		line : i
+       }));
+---------------------------------------------------------------
 
-										
-										
 										
 										
 										
