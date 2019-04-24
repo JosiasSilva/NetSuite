@@ -407,8 +407,109 @@ var customer = context.currentRecord;
         		fieldId: 'custrecord_se_prd_prefquantity',
         		line : i
        }));
----------------------------------------------------------------
-
+=======================================================================================================================================
+							SAVED SEARCH
+=======================================================================================================================================
+Using Run and foreach
+------------------------------------------------
+var employeeSearchObj = search.create({
+    		   type: "employee",
+    		   filters:
+    		   [
+    		      ["custentity_se_everify_i9verify","is","F"], 
+    		      "AND", 
+    		      ["subsidiary.country","anyof","US"], 
+    		      "AND", 
+    		      ["custentity_se_i9id","isnotempty",""]
+    		   ],
+    		   columns:
+    		   [
+    		      /*search.createColumn({name: "email", label: "Email"}),
+    		      search.createColumn({name: "phone", label: "Phone"}),
+    		      search.createColumn({name: "firstname", label: "First Name"}),
+    		      search.createColumn({name: "middlename", label: "Middle Name"}),
+    		      search.createColumn({name: "lastname", label: "Last Name"}),
+    		      search.createColumn({name: "birthdate", label: "Birth Date"}),
+    		      search.createColumn({name: "subsidiary", label: "Subsidiary"}),
+    		      search.createColumn({name: "custentity_se_everify_appliedssn", label: "Applied for SSN"}),
+    		      search.createColumn({name: "custentity_se_everify_alienno", label: "Alien Registration Number"}),
+    		      search.createColumn({name: "custentitycustentity_se_everify_fppnum", label: "Foreign Passport Number"}),
+    		      search.createColumn({name: "custentity_se_i9id", label: "I-9 Id"}),
+    		      search.createColumn({name: "custentity_se_everify_i94admissionnum", label: "I-94 Admission Number"}),
+    		      search.createColumn({name: "custentity_se_everify_uscis", label: "USCIS#"}),
+    		      search.createColumn({name: "visaexpdate", label: "Visa Expiration Date"}),
+    		      search.createColumn({name: "custentity_se_everify_noexpirydate", label: "No Expiration Date"}),
+    		      search.createColumn({name: "custentity_se_everify_workauthexpirydate", label: "Work Authorization Expiry Date"}),
+    		      search.createColumn({name: "custentity_se_everify_pic", label: "Country of Issuance"}),
+    		      search.createColumn({name: "residentstatus", label: "Resident Status"}),
+    		      search.createColumn({
+    		         name: "country",
+    		         join: "subsidiary",
+    		         label: "Country"
+    		      }),*/
+    		      search.createColumn({name: "internalid", label: "Internal ID"})
+    		   ]
+    		});
+    	
+    		var searchResultCount = employeeSearchObj.runPaged().count;
+    		log.debug("employeeSearchObj result count",searchResultCount);
+    		employeeSearchObj.run().each(function(result){
+    		   log.audit("Internal Id", result.getValue('internalid'));
+    		   return true;
+    		});
+--------------------------------------------------------------------------------------------------------------------------------------
+using run an range
+--------------------------------------------------------
+var filters = [
+    	               	["custentity_se_everify_i9verify","is","F"], 
+    	               	"AND", 
+    	               	["custentity_se_i9id","isnotempty",""], 
+    	               	"AND", 
+    	               	["subsidiary.country","anyof","US"]
+    	              ];
+    	
+    	var employeeSearchResults = search.create({
+    		type: search.Type.EMPLOYEE,
+    		filter: filters,
+    		columns: [
+    		          search.createColumn({name: "email", label: "Email"}),
+    		          search.createColumn({name: "phone", label: "Phone"}),
+    		          search.createColumn({name: "firstname", label: "First Name"}),
+    		          search.createColumn({name: "middlename", label: "Middle Name"}),
+    		          search.createColumn({name: "lastname", label: "Last Name"}),
+    		          search.createColumn({name: "birthdate", label: "Birth Date"}),
+    		          search.createColumn({name: "subsidiary", label: "Subsidiary"}),
+    		          search.createColumn({name: "custentity_se_everify_appliedssn", label: "Applied for SSN"}),
+    		          search.createColumn({name: "custentity_se_everify_alienno", label: "Alien Number"}),
+    		          search.createColumn({name: "custentitycustentity_se_everify_fppnum", label: "Foreign Passport Number"}),
+    		          search.createColumn({name: "custentity_se_i9id", label: "I-9 Id"}),
+    		          search.createColumn({name: "custentity_se_everify_i9verify", label: "I-9 Verified"}),
+    		          search.createColumn({name: "custentity_se_everify_i94admissionnum", label: "I-94 Admission Number"}),
+    		          search.createColumn({name: "custentity_se_everify_uscis", label: "USCIS#"}),
+    		          search.createColumn({name: "visaexpdate", label: "Visa Expiration Date"}),
+    		          search.createColumn({name: "custentity_se_everify_noexpirydate", label: "No Expiration Date"}),
+    		          search.createColumn({name: "custentity_se_everify_workauthexpirydate", label: "Work Authorization Expiry Date"}),
+    		          search.createColumn({name: "custentity_se_everify_pic", label: "Passport Issued Country"}),
+    		          search.createColumn({name: "residentstatus", label: "Resident Status"}),
+    		          search.createColumn({
+    		        	  name: "country",
+    		        	  join: "subsidiary",
+    		        	  label: "Country"
+    		          })
+    		        ]
+    		}).run().getRange({
+        		start: 0,
+        		end: 2
+        	});
+// Parsing the search results
+    	for (var i = 0; i < employeeSearchResults.length; i++) {
+    		log.debug('Row ' + i, employeeSearchResults[i].getValue('firstname'));
+    		log.debug('Row ' + i, employeeSearchResults[i].getValue('subsidiary'));
+    		log.debug('Row ' + i, employeeSearchResults[i].getValue('name'));
+    		log.debug('Row ' + i, employeeSearchResults[i].getValue('country'));
+    	}   
+-------------------------------------------------------------------------------------------------------------------------------------	
+	
 										
 										
 										
