@@ -1,3 +1,18 @@
                                                           Releasing a script
 -------------------------------------------------------------------------------------------------------------------------------------
 When releasing any script : Make sure to set the target audience like Role, employee name, Subsidiary etc. for which script will execute.
+
+
+==========================================================================================================================================
+                                                  CUSTOM RECORD NAME (ODBC & JDBC & SuiteScript)
+------------------------------------------------------------------------------------------------------------------------------------------
+Custom record name length limit : 29
+
+If Custom Record name was given like : "Custom Third Party Integration"
+Record name would be : "custom_third_party_integratio"    (Case Insensitive & total chars 29 & all spaces will be replaced with '_')
+
+If you change the custom record name, same will reflect for ODBC, JDBC, SuiteScript.
+
+If some column/field is marked as "save data as encrypted" while record creation, This field & field's data would not come through JDBC & ODBC.
+
+==========================================================================================================================================
