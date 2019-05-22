@@ -1,4 +1,54 @@
   -------------------------------------------------------------------------------------------------------------------------------------
+  -------------------------------------------------------------------------------------------------------------------------------------
+  								CUSTOM ERROR
+----------------------------------------------------------------------------------------------------------------------------------------
+define(['N/error'], function (error){
+   var orderprocessingErr = error.create({
+   	name : 'OrderProcessingError',
+	message : 'There was a problem processing your order'
+   });
+   
+   return {
+   	onRequest : function (context) {
+		try{
+			if(problemWithOrder){
+				throw orderProcessingError;
+			}
+		}catch(e){
+			// handle exception
+		}
+	}
+       }
+  });
+  ---------------------------------------------------------------------------------------------------------------------------------------
+  								ERROR Handling
+----------------------------------------------------------------------------------------------------------------------------------------
+try{
+	var supervisor = record.load({
+		type : record.Type.EMPLOYEE,
+		id : 1234
+	});
+	
+   }catch(e){
+       var ex = JSON.parse(e);
+       var errorMsg = 'Error: ' + ex.name + '\n' +
+       		      'Message: ' + ex.message;
+	
+	if(ex.type == 'error.SuiteScriptError'){
+		errorMsg = errormsg + '\n' + 
+				'ID: '		+ ex.id + '\n' + 
+				'Cause: '	+ ex.cause + '\n' + 
+				'Stack Trace: ' + ex.stack;
+	}
+	if(ex.type == 'error.UserEventError'){
+		errorMsg = errormsg + '\n' + 
+				'ID: '		+ ex.id + '\n' + 
+				'Event type: '	+ ex.eventType + '\n' + 
+				'record ID: '	+ ex.recordId + '\n' + 
+				'Stack Trace: ' + ex.stack;
+	}
+	log.debug(errorType, errorMsg);
+--------------------------------------------------------------------------------------------------------------------------------------		      
   								REDIRECT
 ---------------------------------------------------------------------------------------------------------------------------------------
 // Redirect to Suitelet
