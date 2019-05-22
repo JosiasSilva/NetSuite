@@ -1,4 +1,68 @@
-                                                            LOAD RECORD
+  -------------------------------------------------------------------------------------------------------------------------------------
+  								REDIRECT
+---------------------------------------------------------------------------------------------------------------------------------------
+// Redirect to Suitelet
+
+    	redirect.toSuitelet({
+    		scriptId : 'customscript_sdr_demo_suitelet',
+    		deploymentId : 'customdeploy_sdr_demo_suitelet',
+    		parameters : {
+    			ev_name : employee.getValue('firstname'),
+    			ev_notes : employee.getValue('comments'),
+    			ev_emp_id : employee.id
+    		}
+    	});
+	
+In Suitelet - parse the parameters:
+-----------------------------------
+var request = context.request;
+
+if(request.method == 'GET'){
+    		
+    	// reading the params
+    	var firstName = request.parameters.ev_name;
+    	var notes = request.parameters.ev_notes;
+    	var empId = request.parameters.ev_emp_id;
+}
+
+
+Redirect to Record:
+---------------------
+redirect.toRecord({
+    		type : record.Type.EMPLOYEE,
+    		id : empId
+    	});
+	
+Redirect to custom record:
+--------------------------
+var pdc = redirect.toRecord({
+    		type : 'customrecord_pdc',
+    		id : pdcid
+    	});
+----------------------------------------------------------------------------------------------------------------------------------------
+  								CREATE RECORD
+--------------------------------------------------------------------------------------------------------------------------------------
+//create a new custom record entry - Record Name : PDC
+
+    	var newPDC = record.create({
+    		type : 'customrecord_pdc',	//customrecord_RecordName
+    		/*isDynamic: true,
+    		defaultValues: {
+    			custrecord_se_pdcinvamt : invoiceNo,
+    			custrecord_se_pdccust : customer
+    		}*/
+    	});
+    	
+    	newPDC.setValue('custrecord_se_pdcinvamt', invoiceNo);
+    	newPDC.setValue('custrecord_se_pdccust', customer);
+  
+  // New Delivered record entry
+  
+  var newEmpRecord = record.create({
+    		type : record.Type.EMPLOYEE
+    	});
+  ------------------------------------------------------------------------------------------------------------------------------------
+  								LOAD RECORD
 ------------------------------------------------------------------------------------------------------------------------------------------
 if(context.fieldId == 'subsidiary'){            // check the current active field
 						var subsidiaryRec = record.load({
