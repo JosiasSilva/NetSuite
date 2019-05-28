@@ -1,4 +1,91 @@
-  -------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------
+							Script Parameters
+--------------------------------------------------------------------------------------------------------------------------------------
+A parameter is created in Scheduled Script. Assign some value to it.
+-------------------------------------------------------------------
+function afterSubmit(context) {
+    	var customer = context.newRecord;
+    	
+    	//task to execute scheduled script
+    	var schedTask = task.create({
+    		taskType : task.TaskType.SCHEDULED_SCRIPT
+    	});
+    	
+    	schedTask.scriptId = 'customscript_sdr_ss_generate_so_report';
+    	schedTask.deploymentId = 'customdeploy_sdr_ss_generate_so_report';
+    	
+	// Script Param
+    	schedTask.params = {
+    		custscript_sdr_customer_id : customer.id
+    	};
+    	
+    	schedTask.submit();
+    }
+
+
+Scheduled Script:
+-----------------
+function execute(scriptContext) {
+    	//use the existing JS lib
+    	var scriptRef = runtime.getCurrentScript();
+    	var customerId = scriptRef.getParameter({
+    		name : 'custscript_sdr_customer_id'
+    	});
+    	
+    	log.audit('CustomerId', customerId);
+    	
+    	var filters = [['type', 'anyof', 'SalesOrd'],
+    				  'and',
+    				  ['mainline', 'is', true]];
+    	
+    	if(customerId){
+    		filters = _.concat(filters, ['and', ['entity', 'anyof', customerId]]);
+    	}
+    	
+    	
+    	var orderSearch = search.create({
+    		type : 'transaction',
+    		filters : filters,
+    		columns : ['entity', 'trandate', 'tranid', 'salesrep', 'total']
+    	});
+    	
+    	sdrLib.sendReport(orderSearch);
+    }
+    
+    
+--------------------------------------------------------------------------------------------------------------------------------------
+							Using Third party API (AMD)
+--------------------------------------------------------------------------------------------------------------------------------------
+define(['N/runtime', 
+        'N/search', 
+	'/SuiteScripts - Globals/lib/sdr_lib',		// Custom lib reference
+        '/SuiteScripts - Globals/lib/lodash'		//Third party API reference (AMD Based)
+        ],
+	
+function(runtime, search, sdrLib, _) {				// '_' is the lodash module object & sdrLib is custom lib reference
+--------------------------------------------------------------------------------------------------------------------------------------
+  							Using Third party API (Non AMD)
+---------------------------------------------------------------------------------------------------------------------------------------
+Create a JSON Config file having all third party APIs :
+-------------------------------------------------------
+{
+  "paths":{
+                "moment" : "/SuiteScripts - Globals/lib/moment.min"
+      }
+}
+
+
+In SuitesScript :
+-----------------
+/**
+ * @NApiVersion 2.x
+ * @NScriptType ClientScript
+ * @NModuleScope SameAccount
+ * @NAmdConfig /SuiteScripts - Globals/myConfig.json		// Add path to JSON Config
+ */
+
+define(['N/ui/dialog', 'N/ui/message', 'moment'],		// 'moment' is the third party APIs
+---------------------------------------------------------------------------------------------------------------------------------------
   							SuiteScript Governance
 --------------------------------------------------------------------------------------------------------------------------------------
 Use record.submitFields() instead of record.load() + record.save()
