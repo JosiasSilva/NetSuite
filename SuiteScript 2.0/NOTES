@@ -1,0 +1,15 @@
+                                                           RECORD MODE
+------------------------------------------------------------------------------------------------------------------------------------------
+Client Side:
+--------------
+1.  context.mode = 'create' or 'edit'
+2.  Only available in pageinit entry point. So, use the mode as global variable if required in other functions also.
+3.  context.currentRecord
+
+Server Side:
+--------------
+1.  context.newRecord
+2.  context.type === context.UserEventType.VIEW or .CREATE or .EDIT
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------
