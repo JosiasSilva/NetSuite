@@ -8,7 +8,7 @@ new Date().getTime()
                                                                 formats
 ------------------------------------------------------------------------------------------------------------------------------------------
 Only alphabets:		var format = /^[A-Za-z]+$/;
-Alphanumeric: var format = '/^[a-z0-9]+$/i';
+Alphanumeric: var format = /^[a-z0-9]+$/i;
 Numeric : var format = /^\d+$/;
 
 format.test(variable);	//returns boolean
