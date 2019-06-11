@@ -1,4 +1,47 @@
 ---------------------------------------------------------------------------------------------------------------------------------------
+							Encoding/Decoding (server side)
+----------------------------------------------------------------------------------------------------------------------------------------							
+encode.convert - used to transform a string from one form to other (encoding/decoding both)
+-------------------------------------------------------------------------------------------
+
+require(['N/encode'],
+ function(encode) {
+ function convertStringToDifferentEncoding() {
+ var stringInput = "1234567890";
+ log.debug(stringInput);
+
+ var base64EncodedString = encode.convert({
+ string: stringInput,
+ inputEncoding: encode.Encoding.UTF_8,
+ outputEncoding: encode.Encoding.BASE_64
+ });
+log.debug(base64EncodedString);
+
+var hexEncodedString = encode.convert({
+ string: base64EncodedString,
+ inputEncoding: encode.Encoding.UTF_8,
+ outputEncoding: encode.Encoding.HEX
+ });
+log.debug(hexEncodedString);
+
+ var base64= encode.convert({
+ string: hexEncodedString ,
+ inputEncoding: encode.Encoding.HEX,
+ outputEncoding: encode.Encoding.UTF_8
+ });
+log.debug(base64);
+
+var utf8 = encode.convert({
+ string: base64,
+ inputEncoding: encode.Encoding.BASE_64,
+ outputEncoding: encode.Encoding.UTF_8
+ });
+log.debug(utf8);
+
+ }
+ convertStringToDifferentEncoding();
+ });
+---------------------------------------------------------------------------------------------------------------------------------------
 							Yes/no alert/confirm
 ---------------------------------------------------------------------------------------------------------------------------------------
 if(!confirm('Token will be updated')){
