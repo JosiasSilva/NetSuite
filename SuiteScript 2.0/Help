@@ -1,4 +1,14 @@
 ---------------------------------------------------------------------------------------------------------------------------------------
+							Get Current user details
+---------------------------------------------------------------------------------------------------------------------------------------
+// Get User Information as this saved search must be running in a user context
+      var objUser = runtime.getCurrentUser();
+      var userId = objUser.id;
+      var userName = objUser.name;              
+      var userEmail = objUser.email;  
+      var userRole = runtime.getCurrentUser().role;     // Alternate construct
+      var userRoleId = runtime.getCurrentUser().roleId;
+---------------------------------------------------------------------------------------------------------------------------------------      
 							Encoding/Decoding (server side)
 ----------------------------------------------------------------------------------------------------------------------------------------							
 encode.convert - used to transform a string from one form to other (encoding/decoding both)
