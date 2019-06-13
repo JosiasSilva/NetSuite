@@ -1,7 +1,7 @@
 ---------------------------------------------------------------------------------------------------------------------------------------
 							Get Current user details
 ---------------------------------------------------------------------------------------------------------------------------------------
-// Get User Information as this saved search must be running in a user context
+// Get User Information 
       var objUser = runtime.getCurrentUser();
       var userId = objUser.id;
       var userName = objUser.name;              
