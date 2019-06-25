@@ -1,0 +1,71 @@
+                                                            JS Object Iteration
+======================================================================================================================================
+multiDeposit = {};
+
+//add property to object
+multiDeposit[1] = 	1000;
+multiDeposit[2] = 	2000;
+
+//iteration
+for(var key in multiDeposit){
+	if (multiDeposit.hasOwnProperty(key)) {
+		sum += multiDeposit[key];
+    }
+}
+
+//delete prop from object
+if (multiDeposit.hasOwnProperty(id)) {
+	delete multiDeposit[id];
+}
+
+=====================================================================================================================================
+                                                          Array JSON Iteration:
+--------------------------------------------------------------------------------------------------------------------------------------
+//create JSON array
+obj = '{"checks":[]}';
+obj = JSON.parse(obj);
+
+//add object to array JSON
+obj.checks.push({"id" : 12, "no": 12345, "amt":1000});
+obj.checks.push({"id" : 13, "no": 123, "amt":1111});
+
+//JSON array
+checks: Array(2)
+0: {id: 12, no: 12345, amt: 1000}
+1: {id: 13, no: 123, amt: 1111}
+
+
+//Iteration
+var sum = 0;
+
+obj.checks.forEach(function (line) {
+    sum += line.amt;
+}
+
+//ADVANCED
+//add new node to JSON Array
+
+obj["clear"] = [];
+
+//add object to new node
+obj.clear.push({"id": 1, "amt": 100});
+
+//iteration for new node
+obj.clear.forEach(function (che) {
+    sum += che.amt; 
+});
+
+//Add property to object in particular node
+
+obj.clear[0].clear = "clear";	//adds new prop as "clear" : "clear" at 0th index in clear node of JSON array
+
+//delete prop from object at some index
+delete obj.clear[0].clear;
+
+//delete array element from Node
+delete obj.clear[0];
+
+//delete NODE from JSON array
+delete obj.clear;
+
+=======================================================================================================================================
