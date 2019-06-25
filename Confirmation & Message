@@ -1,0 +1,39 @@
+                                                        JS Confirmation
+==========================================================================================================================================
+if(!confirm('Token will be updated')){
+   	return false;
+}
+
+==========================================================================================================================================
+                                                  Netsuite Confirmation Message
+==========================================================================================================================================
+'N/ui/message'
+
+var msg = message.create({
+                 title: "Confirmation",
+            		 message: "Token updated for " + tpiRec.getValue('custrecord_se_producer_name'),
+            		 type: message.Type.CONFIRMATION,
+            		 duration: 2000
+            	}).show();
+              
+==========================================================================================================================================
+                                                       Message with ok button
+------------------------------------------------------------------------------------------------------------------------------------------
+if(searchResultCount > 0){
+    				
+    				var options = {
+    						 title: 'Duplicate Integration ID',
+    						 message: 'This Integration ID already exists. please enter a different Integration ID',
+    						 buttons: [
+    						 { label: 'OK', value: 1 }
+    						 ]
+    						 };
+    				
+    						 function success(result) { jQuery('#custrecord_se_tpi_name').focus(); }
+    						 function failure(reason) { log.debug('Dialog Create Failure: ' + reason) }
+    						 dialog.create(options).then(success).catch(failure);
+
+    				return false;
+    			}
+    			
+==========================================================================================================================================
