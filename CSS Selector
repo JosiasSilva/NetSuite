@@ -1,0 +1,34 @@
+                                                    1st child of 1st child
+==========================================================================================================================================
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("p:nth-child(1) span:first-child").css("background-color", "yellow");         //change the background color of first SPAN of first P
+});
+</script>
+</head>
+<body>
+
+<p>The first paragraph in body.</p>
+
+<div style="border:1px solid;">
+  <p>The first paragraph in div.<span>span</span></p>
+  <p>The last paragraph in div.</p>
+</div><br>
+
+<div style="border:1px solid;">
+  <span>This is a span element.</span>
+  <p>The first paragraph in another div.</p>
+  <p>The last paragraph in another div.</p>
+</div>
+
+<p>The last paragraph in body.</p>
+
+</body>
+</html>
+
+
+========================================================================================================================================
