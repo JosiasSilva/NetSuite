@@ -1,0 +1,25 @@
+                                                    For SuiteScript 2.0
+=========================================================================================================================================
+module : N/runtime
+
+var scriptObj = runtime.getCurrentScript();
+log.debug("Remaining governance units: " + scriptObj.getRemainingUsage());
+
+=========================================================================================================================================
+                                                    Usage Limit for all Script Types
+-----------------------------------------------------------------------------------------------------------------------------------------                                                    
+Script Type           Total Units Allowed per Script
+------------------------------------------------------
+Scheduled Scripts                 10,000
+User Event Scripts                1,000
+Client Scripts                    1,000
+Map/Reduce                        No Limit**
+Suitelets                         1,000
+RESTlets                          5,000
+Portlet Scripts                   1,000
+Mass Update Scripts               You can have 1,000 units per record/invocation of the script.
+Bundle Installation Scripts       10,000
+Workflow Action Scripts           1,000                 Within one workflow state, all actions combined cannot exceed 1,000 units. Therefore, if you have developed a custom action (using a workflow action script) that consumes 990 units, be aware of the unit consumption of the other actions within that state.
+Core Plug-ins                     10,000                This is the default limit for core plug-ins that do not have more restrictive limits defined. See the help for each core plug-in for any specific usage unit limits.
+
+==========================================================================================================================================
