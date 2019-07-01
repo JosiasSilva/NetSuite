@@ -11,5 +11,5 @@ Server Side:
 1.  context.newRecord
 2.  context.type === context.UserEventType.VIEW or .CREATE or .EDIT
 
-
+log.audit(context.UserEventType.CREATE);    // returns "create" and works in beforeLoad, beforeSubmit, afterSubmit entry points
 -------------------------------------------------------------------------------------------------------------------------------------------
