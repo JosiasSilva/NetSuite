@@ -1,0 +1,38 @@
+In NetSuite, filter expressions to your SuiteScript 2.0 code go two ways. First is when you want it’s just a simple filter and does 
+not have any formulas.
+===========================================================================================================================================
+var objContracts = search.load({
+id: SEARCH_HEADER
+});
+var filterArray = [];
+filterArray.push([field1,'anyof', STATUS_ACTIVE]);
+filterArray.push('and');
+filterArray.push([field2,'anyof', CUSTOMER]);
+objContracts.filterExpression = filterArray;
+var filters = objContracts.filterExpression;
+var arrResult = objContracts.run();
+var arrResultSet = arrResult.getRange({
+start: 0,
+end: 100
+})
+
+With formula: What if you want to add a formula? Let us show you how:
+===========================================================================================================================================
+var objContracts = search.load({
+id: SEARCH_HEADER
+});
+var formulaString = "formulanumeric: CASE WHEN {custrecord_qnz_con_hdr_bal_volume} > 1000 THEN 1 ELSE 0 END";
+var filterArray = [];
+filterArray.push(['field1','anyof', STATUS_ACTIVE]);
+filterArray.push('AND');
+filterArray.push(['field2','anyof', stCustomer]);
+filterArray.push('AND');
+filterArray.push([formulaString, "equalto", "1"]);
+objContracts.filterExpression = filterArray;
+var filters = objContracts.filterExpression;
+var arrResult = objContracts.run();
+var arrResultSet = arrResult.getRange({
+start: 0,
+end: 100
+})
+
