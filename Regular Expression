@@ -5,3 +5,9 @@ var canZipFormat = /^[A-Za-z][0-9][A-Za-z][0-9][A-Za-z][0-9]$/;
 							
 						}
 ============================================================================================================================================            
+Numeric value (length 5) 		:	var regex = /^[0-9]{5}$/;
+Alternate alphanumeric	(length 6)	:	var canZipFormat = /^[A-Za-z][0-9][A-Za-z][0-9][A-Za-z][0-9]$/;
+digits 	only				:	numFormat = /^\d+$/;
+alphabets only				:	nameFormat = /^[A-Za-z]+$/;
+
+
