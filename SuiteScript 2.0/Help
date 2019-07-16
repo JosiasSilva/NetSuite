@@ -796,8 +796,17 @@ var filters = [
     		log.debug('Row ' + i, employeeSearchResults[i].getValue('country'));
     	}   
 -------------------------------------------------------------------------------------------------------------------------------------	
-	
-										
+							ADD NEW STATUS TO RECORD/PAGE
+---------------------------------------------------------------------------------------------------------------------------------------
+var fieldName = context.form.addField({
+            		id:'custpage_everify_status_header',
+            		label:' ',
+            		type: serverWidget.FieldType.INLINEHTML
+            	});
+    			
+            	var html = 'jQuery(".uir-page-title-secondline").append("<div class=\'uir-record-status\'>Any Text</div>");';
+            	fieldName.defaultValue = '<script>jQuery(function($){' + html + '})</script>';
+----------------------------------------------------------------------------------------------------------------------------------------										
 										
 										
 										
