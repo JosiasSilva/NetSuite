@@ -7,7 +7,7 @@
  */
 define(
     ['N/record', 'N/search', 'N/ui/dialog', 'N/format'],
-    function (record, search, dialog, format) {
+    function (r, search, dialog, format) {
 
         function fieldChanged(context) {
 
