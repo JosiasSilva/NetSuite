@@ -32,7 +32,7 @@ function() {
      *
      * @since 2015.2
      */
-    function fieldChanged(scriptContext) {
+    function fieldChanged(context) {
 
     }
 
