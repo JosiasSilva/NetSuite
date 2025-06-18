@@ -17,10 +17,10 @@ define(
                 var idProject = currentRecord.getValue({ fieldId: 'job' });
 
                 if (idProject != "") {
-                  var loadProject = r.load({//objRecord
-  				   type: r.Type.JOB,
-  				   id: idProject,
-					});
+                    var loadProject = record.load({ //objRecord
+                        type: record.Type.JOB,
+                        id: idProject,
+                    });
                     var amountProject = loadProject.getValue('custentity_pd_valor_venda_atualizado');
 
                     var invoiceSearchObj = search.create({
@@ -70,6 +70,7 @@ define(
                             });
                         }
 
+                        return true;
                     });
 
                 }
@@ -84,10 +85,10 @@ define(
             var amountCurrent = currentRecord.getValue({ fieldId: 'total' });
 
                 if (idProject != "") {
-                  var loadProject = r.load({//objRecord
-  				   type: r.Type.JOB,
-  				   id: idProject,
-					});
+                    var loadProject = record.load({ //objRecord
+                        type: record.Type.JOB,
+                        id: idProject,
+                    });
                     var amountProject = loadProject.getValue('custentity_pd_valor_venda_atualizado');
 
                     var invoiceSearchObj = search.create({
@@ -137,6 +138,7 @@ define(
                             });
                         }
 
+                        return true;
                     });
 
                 }
